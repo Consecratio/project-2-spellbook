@@ -1,1 +1,68 @@
-<h2>Place Sign In Page Here</h2>
+<div class="text-center">
+    <h2>Please Sign In</h2>
+    <!-- Link to trigger modal -->
+    <small class="text-muted">Or <a href="#exampleModal" data-toggle="modal" data-target="#exampleModal">create an account</a></small>
+
+    <% if(typeof userExists !== 'undefined' && userExists === true){ %>
+        <p class="text-danger">Email already exists, please sign in.</p>
+    <% } %>
+</div>
+
+<!-- Sign In Form -->
+<form class="col-sm-6 offset-sm-3" method="GET" action="/signin">
+    <div class="form-group">
+        <% if(typeof noUserFound !== 'undefined' && noUserFound === true){ %>
+            <p class="text-danger">Email or password incorrect.</p>
+        <% } %>
+        <label for="signInEmail">Email Address</label>
+        <input type="email" class="form-control" id="signInEmail" name="signInEmail" aria-describedby="emailHelp" required />
+        <small class="form-text text-muted">Use <strong>test@gmail.com</strong> with password <strong>fakepassword</strong> to access site without creating an account</small>
+    </div>
+    <div class="form-group">
+        <label for="signInPassword">Password</label>
+        <input type="password" class="form-control" id="signInPassword" name="signInPassword" required />
+        <small class="form-text text-danger">Email and Passwords are stored in plain texts, do not use real information.</small>
+    </div>
+    <button type="submit" class="btn btn-primary">Submit</button>
+</form>
+
+
+<!-- Sign-Up Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Create New Account</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+
+            <small class="text-center text-danger mt-3">Email and Passwords are stored in plain texts, do not use real information.</small>
+
+            <form method="POST" action="/">
+                <div class="modal-body">
+                    <div class="form-group">
+                        <label for="signUpFirstName">First Name</label>
+                        <input type="text" class="form-control" id="signUpFirstName" name="signUpFirstName" required />
+                        <label for="signUpLastName">Last Name</label>
+                        <input type="text" class="form-control" id="signUpLastName" name="signUpLastName" required />
+                    </div>
+                    <div class="form-group">
+                        <label for="signUpEmail">Email Address</label>
+                        <input type="email" class="form-control" id="signUpEmail" name="signUpEmail" aria-describedby="emailHelp" required />
+                    </div>
+                    <div class="form-group">
+                        <label for="signUpPassword">Password</label>
+                        <input type="password" class="form-control" id="signUpPassword" name="signUpPassword" required />
+                    </div>
+                </div>
+        
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-primary">Sign Up</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

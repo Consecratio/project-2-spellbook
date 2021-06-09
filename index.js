@@ -22,9 +22,67 @@ app.use(express.urlencoded({ extended: false }))
 // allows us to UPDATE and DELETE using ?method=UPDATE/DELETE in forms
 app.use(methodOverride('_method'))
 
-// create home route
+// ROUTES
+
+// GET '/' -- create home route
 app.get('/', (req, res) => {
     res.render('index')
+})
+
+// POST '/' -- create new user in the database
+app.post('/', (req, res) => {
+    // get new data from sign up form
+    db.user.findOrCreate({
+        // check if email already exists
+        where: {
+            email: req.body.signUpEmail
+        },
+        defaults: {
+            firstName: req.body.signUpFirstName,
+            lastName: req.body.signUpLastName,
+            email: req.body.signUpEmail,
+            password: req.body.signUpPassword
+        }
+    }).then(([newUser, created]) => {
+        if(!created) {
+            // user already in db, send back to home page for sign in
+            res.render('index', { userExists: true})
+        } else {
+            // if email is not in db then create new user
+            console.log(newUser)
+            // redirect to /user controller
+            res.send("NEW USER CREATED")
+        }
+    }).catch(err => {
+        console.log(err)
+    })
+})
+
+app.get('/signin', (req, res) => {
+    let logInEmail = req.query.signInEmail
+    let logInPass = req.query.signInPassword
+    
+    // find user with email
+    db.user.findOne({
+        where: {
+            email: logInEmail
+        }
+    }).then(user => {
+        if(user == null){
+            // email doesn't exist in db
+            res.render('index', { noUserFound: true })
+        } else if(user.password === logInPass){
+            // user and password match
+            res.redirect(`/user/${user.id}`)
+        }else {
+            // user and password don't match
+            res.render('index', { noUserFound: true })
+        }
+    })
+
+    // if they don't send back to main page and try again
+
+    // if they do save user.id to localStorage and redirect to /user/index.ejs
 })
 
 // CONTROLLERS
