@@ -21,14 +21,14 @@ app.use(express.urlencoded({ extended: false }))
 // allows us to UPDATE and DELETE using ?method=UPDATE/DELETE in forms
 app.use(methodOverride('_method'))
 
-// CONTROLLERS
-app.use('/user', require('./controllers/user'))
-app.use('/spells', require('./controllers/spells'))
-
 // create home route
 app.get('/', (req, res) => {
     res.render('index')
 })
+
+// CONTROLLERS
+app.use('/user', require('./controllers/user'))
+app.use('/spells', require('./controllers/spells'))
 
 // LISTENER
 app.listen(PORT, () => {
