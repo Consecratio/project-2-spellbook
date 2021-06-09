@@ -4,6 +4,7 @@ require('dotenv').config()
 const express = require('express')
 const layouts = require('express-ejs-layouts')
 const methodOverride = require('method-override')
+const db = require('./models')
 
 
 // SERVER CONFIG

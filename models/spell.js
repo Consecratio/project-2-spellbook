@@ -16,21 +16,7 @@ module.exports = (sequelize, DataTypes) => {
   };
   spell.init({
     spellName: DataTypes.STRING,
-    description: DataTypes.STRING,
-    higherLevel: DataTypes.STRING,
-    range: DataTypes.STRING,
-    components: DataTypes.STRING,
-    material: DataTypes.STRING,
-    ritual: DataTypes.BOOLEAN,
-    duration: DataTypes.STRING,
-    concentration: DataTypes.BOOLEAN,
-    castingTime: DataTypes.STRING,
-    level: DataTypes.INTEGER,
-    attackType: DataTypes.STRING,
-    damageType: DataTypes.STRING,
-    damageAtSlot: DataTypes.STRING,
-    school: DataTypes.STRING,
-    classes: DataTypes.STRING
+    spellObj: DataTypes.JSONB
   }, {
     sequelize,
     modelName: 'spell',
