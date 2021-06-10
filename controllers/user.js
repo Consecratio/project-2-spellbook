@@ -12,9 +12,6 @@ router.get('/:uId', (req, res) => {
             userId: userId
         }
     }).then(books => {
-        console.log("👋👋👋👋👋👋👋👋👋👋👋👋👋👋👋👋👋👋👋👋")
-        console.log(books)
-        console.log("👋👋👋👋👋👋👋👋👋👋👋👋👋👋👋👋👋👋👋👋")
         res.render('user/index', {
             userId: userId,
             books: books
@@ -24,9 +21,9 @@ router.get('/:uId', (req, res) => {
 
 // POST /user/addBook -- add spellbook to user's account
 router.post('/addBook', (req, res) => {
+    let userId = req.body.userId
     let bookName = req.body.bookName
     let bookDesc = req.body.bookDesc
-    let userId = req.body.userId
 
     db.spellbook.create({
         userId: userId,
@@ -43,6 +40,20 @@ router.post('/addBook', (req, res) => {
 router.post('/addSpell', (req, res) => {
     console.log(req.body)
     res.send(`Added ${req.body.spellName} to Spellbook: ${req.body.spellbookSelect}`)
+})
+
+// DELETE /user/delBook/:id -- delete spellbook from user's account
+router.delete('/delBook/:bookId', (req, res) => {
+    let userId = req.body.userId
+    let bookId = req.params.bookId
+
+    db.spellbook.destroy({
+        where: { id: bookId }
+    }).then(deleted => {
+        res.redirect(`${req.originalUrl.split("/delBook").shift()}/${userId}`)
+    }).catch(err => {
+        console.log(err)
+    })
 })
 
 module.exports = router

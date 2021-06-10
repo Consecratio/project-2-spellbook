@@ -1,11 +1,18 @@
 <h2>List all spells from API</h2>
+
 <div class="row">
     <% spells.forEach(spell => { %>
         <div class="col-lg-3 mb-4">
             <div class="card">
                 <div class="card-body">
                     <h5 class="card-title"><%= spell.name %></h5>
-                    <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
+                    <!-- USED FOR HAVING DESCRIPTIONS IN CARDS
+                    <h5 class="card-title"><%= // spell.value.data.name %></h5>
+                    <% // spell.value.data.desc.forEach(desc => { %>
+                        <p class="card-text"><%= // desc %></p>
+                    <% // }) %>
+                     -->
+
                     <!-- Button trigger modal -->
                     <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#addSpellModal" id="<%= spell.index %>" name="spellToModal">
                         Add to Spellbook
