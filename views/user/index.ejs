@@ -1,5 +1,53 @@
 <h2>Hello user, these are your spellbooks</h2>
 
-<% if(user == 1) { %>
-    <p>Hello <%= user %></p>
-<% } %>
+<!-- Button trigger new spellbook form modal -->
+<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#addBookModal">
+    + Create New Spellbook
+</button>
+
+<!-- Display all spellbooks owned by user -->
+<% books.forEach(book => { %>
+    <p><%= book.name %></p>
+    <p><%= book.description %></p>
+<% }) %>
+<!-- Spellbooks link to spells owned by user -->
+
+
+
+<!-- Modal -->
+<div class="modal fade" id="addBookModal" tabindex="-1" role="dialog" aria-labelledby="addBookModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="addBookModalLabel">Create New Spellbook</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+
+            <form action="/user/addBook" method="POST">
+                <div class="modal-body">
+                    <!-- Hidden User Value -->
+                    <input hidden type="text" name="userId" value="<%= userId %>" required />
+
+                    <div class="form-group">
+                        <label for="bookName">Spellbook Name</label>
+                        <input type="text" class="form-control" name="bookName" id="bookName" required />
+                    </div>
+
+                    <div class="form-group">
+                        <label for="bookDesc">Add description</label>
+                        <textarea type="text" class="form-control" name="bookDesc" id="bookDesc" rows="3" required ></textarea>
+                    </div>
+
+                </div>
+
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-primary">Add Spellbook</button>
+                </div>
+            </form>
+
+        </div>
+    </div>
+</div>
