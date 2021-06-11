@@ -21,7 +21,7 @@ module.exports = (sequelize, DataTypes) => {
     duration: DataTypes.STRING,
     castingTime: DataTypes.STRING,
     classes: DataTypes.STRING,
-    description: DataTypes.STRING,
+    description: DataTypes.TEXT,
     components: DataTypes.STRING,
     material: DataTypes.STRING,
     ritual: DataTypes.BOOLEAN,

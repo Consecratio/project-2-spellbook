@@ -53,6 +53,24 @@ router.post('/addSpell', (req, res) => {
         axios.get(`https://www.dnd5eapi.co/api/spells/${spellName}`)
         .then(resFromApi => {
             let data = resFromApi.data
+
+            // loop through arrays or objects and turn them to single strings
+            // description
+            let desc = data.desc.join('    ')
+            // components
+            let comp = data.components.join(', ')
+            // classes
+            let classes
+            
+            data.classes.forEach(obj => {
+                if(!classes) { 
+                    classes = obj.name
+                } else {
+                    classes += `, ${obj.name}`
+                }
+            })
+
+            // create spell and add it to spellbook
             db.spell.create({
                 // bring in spell information
                 // TODO: fix spell not pushing into the DB
@@ -61,9 +79,9 @@ router.post('/addSpell', (req, res) => {
                 range: data.range,
                 duration: data.duration,
                 castingTime: data.casting_time,
-                classes: data.classes,
-                description: data.desc,
-                components: data.components,
+                classes: classes,
+                description: desc,
+                components: comp,
                 material: data.material,
                 ritual: data.ritual,
                 concentration: data.concentration
@@ -73,6 +91,7 @@ router.post('/addSpell', (req, res) => {
             }).catch(err => {
                 console.log(err)
             })
+
         }).catch(err => {
             console.log(err)
         })

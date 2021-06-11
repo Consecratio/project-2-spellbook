@@ -1,5 +1,7 @@
 const db = require('./models')
 
+db.spell.sync({ alter: true })
+
 function createUser() {
     db.user.create({
         firstName: "First",
@@ -65,14 +67,14 @@ function createSpell(){
 
 // createSpell()
 
-db.spellbook.findOne({
-    where: {
-        id: 1
-    },
-    include: [db.user, db.spell]
-}).then(book => {
-    book.spells.forEach(spell => {
-        console.log(`${book.user.firstName}'s spellbook is named: ${book.name}`)
-        console.log(`And has spell: ${spell.name} of range ${spell.range}`)
-    })
-})
+// db.spellbook.findOne({
+//     where: {
+//         id: 1
+//     },
+//     include: [db.user, db.spell]
+// }).then(book => {
+//     book.spells.forEach(spell => {
+//         console.log(`${book.user.firstName}'s spellbook is named: ${book.name}`)
+//         console.log(`And has spell: ${spell.name} of range ${spell.range}`)
+//     })
+// })
