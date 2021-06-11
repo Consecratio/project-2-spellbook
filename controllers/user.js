@@ -79,6 +79,22 @@ router.post('/addSpell', (req, res) => {
     }) 
 })
 
+// GET /user/spellbook-- view contents of spellbook
+router.get('/spellbook/:bookId', (req, res) => {
+    let bookId = req.params.bookId
+
+    db.spellbook.findOne({
+        where: {
+            id: bookId
+        },
+        include: [db.user, db.spell]
+    }).then(book => {
+        console.log("👋👋👋👋👋👋👋👋👋👋👋👋👋👋👋👋👋👋👋👋")
+        console.log(book.spells)
+        res.render('user/spellbook', { book: book, spells: book.spells })
+    })
+})
+
 // DELETE /user/delBook/:id -- delete spellbook from user's account
 router.delete('/delBook/:bookId', (req, res) => {
     let userId = req.body.userId

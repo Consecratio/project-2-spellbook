@@ -1,1 +1,5 @@
-<h2>Display a list of saved spells</h2>
+<h2><%= book.name %>: Spells</h2>
+
+<% spells.forEach(spell => { %>
+    <p><%= spell.name %></p>
+<% }) %>
