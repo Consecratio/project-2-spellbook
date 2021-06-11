@@ -76,3 +76,24 @@
         </div>
     </div>
 </div>
+
+
+<!-- Track User -->
+<script>
+    // this is used to alter the navbar link after user logs in
+    let spellbookLink = document.getElementById('spellbooksLink')
+    let spellListLink = document.getElementById('spellListLink')
+
+    // store userId in localStorage
+    if(!localStorage.getItem('userId')) {
+        console.log("new userId created")
+        let userId = document.getElementsByName('userId')[0].value
+        localStorage.setItem('userId', userId)
+    }
+    
+    // change spellbook link if userId exists in localstorage
+    if(localStorage.getItem('userId')) {
+        spellbookLink.href = "/user/" + localStorage.getItem('userId')
+        spellListLink.href = "/spells/" + localStorage.getItem('userId')
+    }
+</script>

@@ -1,10 +1,11 @@
+const axios = require('axios')
 const express = require('express')
 const db = require('../models')
 const router = express.Router()
 
-// GET /user/:uId -- returns home page for the logged in user of :uId
-router.get('/:uId', (req, res) => {
-    let userId = req.params.uId
+// GET /user/:id -- returns home page for the logged in user of :id
+router.get('/:id', (req, res) => {
+    let userId = req.params.id
 
     // get list of spellbooks owned by user
     db.spellbook.findAll({
@@ -38,8 +39,44 @@ router.post('/addBook', (req, res) => {
 
 // POST /user/addSpell -- add spell from /spells/index to user's spellbook
 router.post('/addSpell', (req, res) => {
-    console.log(req.body)
-    res.send(`Added ${req.body.spellName} to Spellbook: ${req.body.spellbookSelect}`)
+    console.log("👋👋👋👋👋👋👋👋👋👋👋👋👋👋👋👋👋👋👋👋👋👋👋")
+    let bookId = req.body.spellbookSelect
+    let spellName = req.body.spellName
+
+    // add spell from form on /spells/index to spellbook
+    db.spellbook.findOne({
+        where: {
+            id: bookId
+        }
+    }).then(book => {
+        // do an axios request for spell info
+        axios.get(`https://www.dnd5eapi.co/api/spells/${spellName}`)
+        .then(resFromApi => {
+            let data = resFromApi.data
+            db.spell.create({
+                // bring in spell information
+                // TODO: fix spell not pushing into the DB
+                name: data.name,
+                level: data.level,
+                range: data.range,
+                duration: data.duration,
+                castingTime: data.casting_time,
+                classes: data.classes,
+                description: data.desc,
+                components: data.components,
+                material: data.material,
+                ritual: data.ritual,
+                concentration: data.concentration
+            }).then(spell => {
+                book.addSpell(spell)
+                res.send(`Added ${req.body.spellName} to Spellbook: ${req.body.spellbookSelect}`)
+            }).catch(err => {
+                console.log(err)
+            })
+        }).catch(err => {
+            console.log(err)
+        })
+    }) 
 })
 
 // DELETE /user/delBook/:id -- delete spellbook from user's account

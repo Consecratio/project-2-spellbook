@@ -5,7 +5,9 @@
         <div class="col-lg-3 mb-4">
             <div class="card">
                 <div class="card-body">
+
                     <h5 class="card-title"><%= spell.name %></h5>
+
                     <!-- USED FOR HAVING DESCRIPTIONS IN CARDS
                     <h5 class="card-title"><%= // spell.value.data.name %></h5>
                     <% // spell.value.data.desc.forEach(desc => { %>
@@ -44,12 +46,10 @@
                         <input hidden type="text" name="spellName" id="spellName" value="" />
                         <label for="spellbookSelect">Pick Spellbook</label>
                         <select class="form-control" id="spellbookSelect" name="spellbookSelect">
-                            <!-- TODO: add loop for options based on spellbooks user has -->
-                            <option>1</option>
-                            <option>2</option>
-                            <option>3</option>
-                            <option>4</option>
-                            <option>5</option>
+                            <!-- options based on spellbooks user has -->
+                            <% books.forEach(book => { %>
+                                <option value="<%= book.id %>"><%= book.name %></option>
+                            <% }) %>
                         </select>
                     </div>
                 </div>
