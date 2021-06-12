@@ -19,10 +19,13 @@
             </button>
             <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
                 <div class="navbar-nav">
-                <a class="nav-link" href="/">Home</a>
-                <a class="nav-link" id="spellListLink" href="/spells/0">Spells</a>
-                <a class="nav-link" id="spellbooksLink" href="/user/0">Spellbooks</a>
+                    <a class="nav-link" href="/">Home</a>
+                    <a class="nav-link" id="spellListLink" href="/spells/0">Spells</a>
+                    <a class="nav-link" id="spellbooksLink" href="/user/0">Spellbooks</a>
                 </div>
+            </div>
+            <div>
+                <button type="button" class="btn btn-outline-danger" id="logout" hidden ><a href="/" style="color: inherit; text-decoration: inherit;">LOG OUT</a></button>
             </div>
         </nav>
 
@@ -36,11 +39,18 @@
             // this is used to alter the navbar link after user logs in
             let spellbookLink = document.getElementById('spellbooksLink')
             let spellListLink = document.getElementById('spellListLink')
+            let logOutButton = document.getElementById('logout')
         
             // change spellbook link if userId exists in localstorage
             if(localStorage.getItem('userId')) {
                 spellbookLink.href = "/user/" + localStorage.getItem('userId')
                 spellListLink.href = "/spells/" + localStorage.getItem('userId')
+
+                logOutButton.removeAttribute("hidden")
+                logOutButton.addEventListener('click', () => {
+                    localStorage.clear()
+                    location.reload()
+                })
             }
         </script>
         <!-- Boostrap 4.6.0 scripts -->

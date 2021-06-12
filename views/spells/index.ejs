@@ -72,3 +72,22 @@
        }
    })
 </script>
+<!-- Track User -->
+<script>
+    // this is used to alter the navbar link after user logs in
+    let spellbookLink = document.getElementById('spellbooksLink')
+    let spellListLink = document.getElementById('spellListLink')
+    let logOutButton = document.getElementById('logout')
+
+    // change spellbook link if userId exists in localstorage
+    if(localStorage.getItem('userId')) {
+        spellbookLink.href = "/user/" + localStorage.getItem('userId')
+        spellListLink.href = "/spells/" + localStorage.getItem('userId')
+
+        logOutButton.removeAttribute("hidden")
+        logOutButton.addEventListener('click', () => {
+            localStorage.clear()
+            location.reload()
+        })
+    }
+</script>

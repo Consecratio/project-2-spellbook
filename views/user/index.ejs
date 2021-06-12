@@ -83,6 +83,7 @@
     // this is used to alter the navbar link after user logs in
     let spellbookLink = document.getElementById('spellbooksLink')
     let spellListLink = document.getElementById('spellListLink')
+    let logOutButton = document.getElementById('logout')
 
     // store userId in localStorage
     if(!localStorage.getItem('userId')) {
@@ -95,5 +96,11 @@
     if(localStorage.getItem('userId')) {
         spellbookLink.href = "/user/" + localStorage.getItem('userId')
         spellListLink.href = "/spells/" + localStorage.getItem('userId')
+
+        logOutButton.removeAttribute("hidden")
+        logOutButton.addEventListener('click', () => {
+            localStorage.clear()
+            location.reload()
+        })
     }
 </script>

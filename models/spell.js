@@ -23,7 +23,7 @@ module.exports = (sequelize, DataTypes) => {
     classes: DataTypes.STRING,
     description: DataTypes.TEXT,
     components: DataTypes.STRING,
-    material: DataTypes.STRING,
+    material: DataTypes.TEXT,
     ritual: DataTypes.BOOLEAN,
     concentration: DataTypes.BOOLEAN
   }, {
