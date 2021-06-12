@@ -25,12 +25,15 @@
           </div>
 
           <% let newClasses = spell.classes.replace(",", " |") %>
-          <div><%= newClasses %></div>
-          <div>Description: <%= spell.description %></div>
+          <div><strong><%= newClasses %></strong></div>
+
+          <% let newDesc = spell.description.replace(/    /g, "<br /><br />") %>
+          <div><%- newDesc %></div>
+          <br />
           <div>Components: <%= spell.components %></div>
           <div>Material: <%= spell.material %></div>
-          <div>Ritual: <%= spell.ritual %></div>
-          <div>Concentration: <%= spell.concentration %></div>
+          <div>Ritual: <%= spell.ritual ? 'Yes' : 'No' %></div>
+          <div>Concentration: <%= spell.concentration ? 'Yes' : 'No' %></div>
         </div>
       </div>
     </div>
