@@ -73,7 +73,6 @@ router.post('/addSpell', (req, res) => {
             // create spell and add it to spellbook
             db.spell.create({
                 // bring in spell information
-                // TODO: fix spell not pushing into the DB
                 name: data.name,
                 level: data.level,
                 range: data.range,
@@ -98,6 +97,24 @@ router.post('/addSpell', (req, res) => {
     }) 
 })
 
+// DELETE /user/spellbook/removeSpell -- delete spell from spellbook
+router.delete('/spellbook/removeSpell', (req, res) => {
+    let userId = req.body.userId // TODO: might need to pass userId to each page
+    let spellId = req.body.spellId
+    let bookId = req.body.bookId
+
+    db.spellbooks_spells.destroy({
+        where: {
+            spellbookId: bookId,
+            spellId: spellId
+        }
+    }).then(() => {
+        res.redirect(`${req.originalUrl.split("/removeSpell").shift()}/${bookId}`)
+    })
+
+})
+
+
 // GET /user/spellbook-- view contents of spellbook
 router.get('/spellbook/:bookId', (req, res) => {
     let bookId = req.params.bookId
@@ -108,9 +125,7 @@ router.get('/spellbook/:bookId', (req, res) => {
         },
         include: [db.user, db.spell]
     }).then(book => {
-        console.log("👋👋👋👋👋👋👋👋👋👋👋👋👋👋👋👋👋👋👋👋")
-        console.log(book.spells)
-        res.render('user/spellbook', { book: book, spells: book.spells })
+        res.render('user/spellbook', { book: book, spells: book.spells, userId: book.user.id })
     })
 })
 
