@@ -1,5 +1,13 @@
 <h2><%= book.name %>: Spells</h2>
 
+<a id="addSpellsBtn" href="">
+  <button class="btn btn-primary">
+    + Add Spells
+  </button>
+</a>
+
+<hr />
+
 <div class="row">
   <% spells.forEach(spell => { %>
     <div class="col-xl-4 mb-4">
@@ -54,3 +62,10 @@
     </div>
   <% }) %>
 </div>
+
+<!-- Scripts -->
+<script>
+  let addSpellsBtn = document.getElementById('addSpellsBtn')
+
+  addSpellsBtn.href = "/spells/" + localStorage.getItem('userId')
+</script>
