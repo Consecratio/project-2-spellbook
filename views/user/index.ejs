@@ -1,4 +1,4 @@
-<h2>Hello user, these are your spellbooks</h2>
+<h2>Spellbooks</h2>
 
 <!-- Button trigger new spellbook form modal -->
 <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#addBookModal">
@@ -102,7 +102,7 @@
         logOutButton.removeAttribute("hidden")
         logOutButton.addEventListener('click', () => {
             localStorage.clear()
-            location.reload()
+            window.location.href = "/"
         })
     }
 </script>

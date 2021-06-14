@@ -51,7 +51,7 @@ app.post('/', (req, res) => {
             // if email is not in db then create new user
             console.log(newUser)
             // redirect to /user controller
-            res.send("NEW USER CREATED")
+            res.redirect(`user/${newUser.id}`)
         }
     }).catch(err => {
         console.log(err)
