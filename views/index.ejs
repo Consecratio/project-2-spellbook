@@ -66,3 +66,10 @@
         </div>
     </div>
 </div>
+
+<!-- Scripts -->
+<script>
+    if(localStorage.getItem('userId')){
+        window.location.href = `/user/${localStorage.getItem('userId')}`
+    }
+</script>

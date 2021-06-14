@@ -89,7 +89,9 @@
     if(!localStorage.getItem('userId')) {
         console.log("new userId created")
         let userId = document.getElementsByName('userId')[0].value
-        localStorage.setItem('userId', userId)
+        if(userId !== 0){
+            localStorage.setItem('userId', userId)
+        }
     }
     
     // change spellbook link if userId exists in localstorage

@@ -71,22 +71,27 @@ router.post('/addSpell', (req, res) => {
             })
 
             // create spell and add it to spellbook
-            db.spell.create({
-                // bring in spell information
-                name: data.name,
-                level: data.level,
-                range: data.range,
-                duration: data.duration,
-                castingTime: data.casting_time,
-                classes: classes,
-                description: desc,
-                components: comp,
-                material: data.material,
-                ritual: data.ritual,
-                concentration: data.concentration
-            }).then(spell => {
+            db.spell.findOrCreate({
+                where: {
+                    name: data.name
+                },
+                defaults: {
+                    // bring in spell information
+                    name: data.name,
+                    level: data.level,
+                    range: data.range,
+                    duration: data.duration,
+                    castingTime: data.casting_time,
+                    classes: classes,
+                    description: desc,
+                    components: comp,
+                    material: data.material,
+                    ritual: data.ritual,
+                    concentration: data.concentration
+                }
+            }).then(([spell, created]) => {
                 book.addSpell(spell)
-                res.send(`Added ${req.body.spellName} to Spellbook: ${req.body.spellbookSelect}`)
+                res.redirect(`/spells/${book.userId}`)
             }).catch(err => {
                 console.log(err)
             })
@@ -98,7 +103,6 @@ router.post('/addSpell', (req, res) => {
 })
 
 // DELETE /user/spellbook/removeSpell -- delete spell from spellbook
-// TODO: when deleting a spell and book relationship, also delete the spell from the spell model
 router.delete('/spellbook/removeSpell', (req, res) => {
     let userId = req.body.userId // TODO: might need to pass userId to each page
     let spellId = req.body.spellId
@@ -110,13 +114,7 @@ router.delete('/spellbook/removeSpell', (req, res) => {
             spellId: spellId
         }
     }).then(() => {
-        db.spell.destroy({
-            where: {
-                id: spellId
-            }
-        }).then(() => {
-            res.redirect(`${req.originalUrl.split("/removeSpell").shift()}/${bookId}`)
-        })
+        res.redirect(`${req.originalUrl.split("/removeSpell").shift()}/${bookId}`)
     })
 
 })
@@ -136,20 +134,27 @@ router.get('/spellbook/:bookId', (req, res) => {
     })
 })
 
-// DELETE /user/delBook/:id -- delete spellbook from user's account
-// TODO: when deleting a book delete all spell associated with book.
+// DELETE /user/delBook/:id -- delete spellbook from user's account, and delete references in the join table
 router.delete('/delBook/:bookId', (req, res) => {
     let userId = req.body.userId
     let bookId = req.params.bookId
 
-
-    db.spellbook.destroy({
-        where: { id: bookId }
-    }).then(deleted => {
-        res.redirect(`${req.originalUrl.split("/delBook").shift()}/${userId}`)
+    db.spellbooks_spells.destroy({
+        where: {
+            spellbookId: bookId
+        }
+    }).then(() => {
+        db.spellbook.destroy({
+            where: { id: bookId }
+        }).then(deleted => {
+            res.redirect(`${req.originalUrl.split("/delBook").shift()}/${userId}`)
+        }).catch(err => {
+            console.log(err)
+        })
     }).catch(err => {
         console.log(err)
     })
+
 })
 
 module.exports = router
