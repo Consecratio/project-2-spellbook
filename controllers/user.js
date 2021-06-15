@@ -37,9 +37,27 @@ router.post('/addBook', (req, res) => {
     })
 })
 
+// PUT /user/editBook -- edit spellbooks name and description
+router.put('/editBook', (req, res) => {
+    let userId = req.body.userId
+    let bookId = req.body.bookId
+    let bookName = req.body.bookName
+    let bookDesc = req.body.bookDesc
+
+    db.spellbook.update({
+        name: bookName,
+        description: bookDesc
+    }, {
+        where: { id: bookId }
+    }).then(() => {
+        res.redirect(`./${userId}`)
+    }).catch(err => {
+        console.log(err)
+    })
+})
+
 // POST /user/addSpell -- add spell from /spells/index to user's spellbook
 router.post('/addSpell', (req, res) => {
-    console.log("👋👋👋👋👋👋👋👋👋👋👋👋👋👋👋👋👋👋👋👋👋👋👋")
     let bookId = req.body.spellbookSelect
     let spellName = req.body.spellName
 

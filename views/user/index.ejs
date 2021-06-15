@@ -89,7 +89,7 @@
             </div>
 
             <!-- TODO: update action to allow form to PUT new name/description for spellbook -->
-            <form action="/user/editBook" method="POST">
+            <form action="/user/editBook?_method=PUT" method="POST">
                 <div class="modal-body">
                     <!-- Hidden User Value -->
                     <input hidden type="text" name="userId" value="<%= userId %>" required />
@@ -110,7 +110,7 @@
 
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                    <button type="submit" class="btn btn-primary">Add Spellbook</button>
+                    <button type="submit" class="btn btn-primary">Submit</button>
                 </div>
             </form>
 
