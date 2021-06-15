@@ -4,11 +4,13 @@ require('dotenv').config()
 const express = require('express')
 const layouts = require('express-ejs-layouts')
 const methodOverride = require('method-override')
+const rowdy = require('rowdy-logger')
 const db = require('./models')
 
 
 // SERVER CONFIG
 const app = express()
+const rowdyResults = rowdy.begin(app)
 const PORT = process.env.PORT || 3000
 app.set('view engine', 'ejs')
 
@@ -91,5 +93,6 @@ app.use('/spells', require('./controllers/spells'))
 
 // LISTENER
 app.listen(PORT, () => {
+    rowdyResults.print()
     console.log(`You are listening on port ${PORT}`)
 })
