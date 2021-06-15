@@ -100,6 +100,8 @@
     let spellListLink = document.getElementById('spellListLink')
     let logOutButton = document.getElementById('logout')
 
+    spellListLink.classList.add("active")
+
     let alphabet = document.getElementById('linksToClone')
     let clone = alphabet.cloneNode(true)
     document.getElementById('cloneLocation').appendChild(clone)

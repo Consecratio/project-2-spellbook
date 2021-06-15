@@ -134,6 +134,8 @@
     let spellListLink = document.getElementById('spellListLink')
     let logOutButton = document.getElementById('logout')
 
+    spellbookLink.classList.add("active")
+
     // store userId in localStorage
     if(!localStorage.getItem('userId')) {
         console.log("new userId created")
