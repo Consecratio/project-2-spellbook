@@ -1,12 +1,25 @@
-<h2>List all spells from API</h2>
+<h2>List of spells from API</h2>
+
+<hr />
+
+<!-- Pagination code for user quick jump to specific letters -->
+<div id="cloneLocation" class="d-flex">
+</div>
 
 <div class="row">
+    <!-- TODO: have links be created so users can quickly skip to that letter of the alphabet -->
+    <% let alphabet = [] %>
     <% spells.forEach(spell => { %>
         <div class="col-lg-3 mb-4">
             <div class="card">
                 <div class="card-body">
 
-                    <h5 class="card-title"><%= spell.name %></h5>
+                    <% if(!alphabet.includes(spell.name[0])) { %>
+                        <% alphabet.push(spell.name[0]) %>
+                        <h5 class="card-title" id="<%= spell.name[0] %>"><%= spell.name %></h5>
+                    <% }else { %>
+                        <h5 class="card-title"><%= spell.name %></h5>
+                    <% } %>
 
                     <!-- USED FOR HAVING DESCRIPTIONS IN CARDS
                     <h5 class="card-title"><%= // spell.value.data.name %></h5>
@@ -23,6 +36,15 @@
             </div>
         </div>
     <% }) %>
+</div>
+
+<!-- Pagination code for user quick jump to specific letters -->
+<div class="d-flex">
+    <ul class="pagination pagination-sm list-inline mx-auto justify-content-center" id="linksToClone">
+        <% alphabet.forEach(letter => { %>
+            <li class="page-item"><a class="page-link" href="#<%= letter %>"><%= letter %></a></li>
+        <% }) %>
+    </ul>
 </div>
 
 
@@ -78,6 +100,10 @@
     let spellbookLink = document.getElementById('spellbooksLink')
     let spellListLink = document.getElementById('spellListLink')
     let logOutButton = document.getElementById('logout')
+
+    let alphabet = document.getElementById('linksToClone')
+    let clone = alphabet.cloneNode(true)
+    document.getElementById('cloneLocation').appendChild(clone)
 
     // change spellbook link if userId exists in localstorage
     if(localStorage.getItem('userId')) {
