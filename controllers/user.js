@@ -17,6 +17,8 @@ router.get('/:id', (req, res) => {
             userId: userId,
             books: books
         })
+    }).catch(err => {
+        console.log(err)
     })
 })
 
@@ -134,6 +136,8 @@ router.delete('/spellbook/removeSpell', (req, res) => {
         }
     }).then(() => {
         res.redirect(`${req.originalUrl.split("/removeSpell").shift()}/${bookId}`)
+    }).catch(err => {
+        console.log(err)
     })
 
 })
@@ -150,6 +154,8 @@ router.get('/spellbook/:bookId', (req, res) => {
         include: [db.user, db.spell]
     }).then(book => {
         res.render('user/spellbook', { book: book, spells: book.spells, userId: book.user.id })
+    }).catch(err => {
+        console.log(err)
     })
 })
 

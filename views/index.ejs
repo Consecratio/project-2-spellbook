@@ -69,6 +69,7 @@
 
 <!-- Scripts -->
 <script>
+    // if the userId exists in localStorage then have them get redirected to their spellbooks
     if(localStorage.getItem('userId')){
         window.location.href = `/user/${localStorage.getItem('userId')}`
     }
