@@ -108,6 +108,7 @@ router.post('/addSpell', (req, res) => {
                     concentration: data.concentration
                 }
             }).then(([spell, created]) => {
+                // adds the spell to the spellbook that was found above
                 book.addSpell(spell)
                 res.redirect(`/spells/${book.userId}`)
             }).catch(err => {

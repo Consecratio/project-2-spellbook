@@ -70,21 +70,14 @@ app.get('/signin', (req, res) => {
             email: logInEmail
         }
     }).then(user => {
-        if(user == null){
-            // email doesn't exist in db
+        if(user === null || user.password !== logInPass){
+            // email doesn't exist in db OR password doesn't match pass in db
             res.render('index', { noUserFound: true })
         } else if(user.password === logInPass){
             // user and password match
             res.redirect(`/user/${user.id}`)
-        }else {
-            // user and password don't match
-            res.render('index', { noUserFound: true })
         }
     })
-
-    // if they don't send back to main page and try again
-
-    // if they do save user.id to localStorage and redirect to /user/index.ejs
 })
 
 // CONTROLLERS
