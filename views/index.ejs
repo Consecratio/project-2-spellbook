@@ -1,7 +1,7 @@
 <div class="text-center">
     <h2>Please Sign In</h2>
     <!-- Link to trigger modal -->
-    <small class="text-muted">Or <a href="#exampleModal" data-toggle="modal" data-target="#exampleModal">create an account</a></small>
+    <small class="text-white">Or <a href="#exampleModal" data-toggle="modal" data-target="#exampleModal">create an account</a></small>
 
     <% if(typeof userExists !== 'undefined' && userExists === true){ %>
         <p class="text-danger">Email already exists, please sign in.</p>
@@ -14,14 +14,14 @@
         <% if(typeof noUserFound !== 'undefined' && noUserFound === true){ %>
             <p class="text-danger">Email or password incorrect.</p>
         <% } %>
-        <label for="signInEmail">Email Address</label>
+        <label class="text-white" for="signInEmail">Email Address</label>
         <input type="email" class="form-control" id="signInEmail" name="signInEmail" aria-describedby="emailHelp" required />
-        <small class="form-text text-muted">Use <strong>test@gmail.com</strong> with password <strong>fakepassword</strong> to access site without creating an account</small>
+        <small class="form-text text-white">Use <strong>test@gmail.com</strong> with password <strong>fakepassword</strong> to access site without creating an account</small>
     </div>
     <div class="form-group">
-        <label for="signInPassword">Password</label>
+        <label class="text-white" for="signInPassword">Password</label>
         <input type="password" class="form-control" id="signInPassword" name="signInPassword" required />
-        <small class="form-text text-danger">Email and Passwords are stored in plain texts, do not use real information.</small>
+        <small class="form-text text-danger font-weight-bold">Email and Passwords are stored in plain texts, do not use real information.</small>
     </div>
     <button type="submit" class="btn btn-primary">Submit</button>
 </form>
