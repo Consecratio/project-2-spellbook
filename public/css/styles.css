@@ -12,6 +12,14 @@ body {
     color: red;
 }
 
+hr {
+    border-top: 3px solid black;
+}
+
+h2 {
+    color: white;
+}
+
 .spell-header {
     background-color: blueviolet;
     color: white;
